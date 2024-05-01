@@ -112,6 +112,7 @@ type Mutation {
   addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
   editUser(user: UserData): User
   addPost(title: String!, summary: String, content: String!): Post
+  emailLeaders(id: [ID]!, title: String!, body: String!, replyTo: String): User
 }
 `;
 

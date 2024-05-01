@@ -76,7 +76,16 @@ const resolvers = {
       if (user.role !== 'leader') throw new Error('Unauthorized');
       return await Post.create(args);
     },
-    // sendEmail: async (_, args) => {}
+    emailLeaders: async (_, args) => {
+      // input args: array of user IDs, email title, email body, reply-to email
+      // should we allow "reply-to" to be blank if the sender doestn't need a reply?
+
+      // retrieve the emails of the leaders from the DB
+      const leaders = await User.find({ _id: { $in: args.id } }).select('email');
+      console.log(args);
+      console.log(leaders);
+      // returned an array of objects with property "email" (one array item per leader in input)
+    }
   }
 };
 
