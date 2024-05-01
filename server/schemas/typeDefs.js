@@ -5,6 +5,7 @@ type Member {
   usmsId: String!
   firstName: String!
   lastName: String!
+  fullName: String
   gender: String!
   club: String!
   workoutGroup: String
@@ -17,6 +18,7 @@ type User {
   _id: ID!
   firstName: String!
   lastName: String!
+  fullName: String
   email: String!
   password: String!
   role: String!
@@ -102,6 +104,7 @@ type Query {
   competitors: [Competitor]
   groups: [String]
   vmstMembers(workoutGroup: String): [Member]
+  getLeaders: [User]
 }
 
 type Mutation {

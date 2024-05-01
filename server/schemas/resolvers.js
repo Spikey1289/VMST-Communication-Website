@@ -30,7 +30,8 @@ const resolvers = {
       } catch (err) {
         console.log(err);
       }
-    }
+    },
+    getLeaders: async () => await User.find({ role: 'leader' }),
   },
   Mutation: {
     // login with email and password which returns signed JWT
@@ -74,7 +75,8 @@ const resolvers = {
       // only team leaders can create posts
       if (user.role !== 'leader') throw new Error('Unauthorized');
       return await Post.create(args);
-    }
+    },
+    // sendEmail: async (_, args) => {}
   }
 };
 

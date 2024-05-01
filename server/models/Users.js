@@ -31,27 +31,35 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new Schema({
-  firstName: {type: String, required: true,},
-  lastName: {type: String, required: true,},
-  // email/password used to login
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Must match an email address!'],
-    minLength: 1, // I read that empty strings pass the match validator
+const userSchema = new Schema(
+  {
+    firstName: { type: String, required: true, },
+    lastName: { type: String, required: true, },
+    // email + password used to login
+    email: {
+      type: String, required: true, unique: true, minLength: 1,
+      match: [/^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Must match an email address!'],
+    },
+    password: { type: String, required: true, minlength: 6, },
+    role: {
+      type: String, required: true, default: 'user',
+      // must be one of the following values
+      enum: ['user', 'leader', 'coach', 'admin', 'membership'],
+    },
+    notifications: { type: Boolean, default: false, },
+    emailPermission: { type: Boolean, default: true, },
   },
-  password: {type: String, required: true, minlength: 6,},
-  role: {type: String, required: true, default: 'user',
-    // must be one of the following values
-    enum: ['user', 'leader', 'coach', 'admin', 'membership'],
-  },
-  notifications: {type: Boolean, default: false,},
-  emailPermission: {type: Boolean, default: true,}
-});
+  {
+    virtuals: {
+      fullName: {
+        get() { return `${this.firstName} ${this.lastName}`; },
+      },
+    },
+    toJSON: { virtuals: true },
+  }
+);
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -59,9 +67,9 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.methods.isCorrectPassword = async function (password) {
+userSchema.methods.isCorrectPassword = async function(password) {
   return bcrypt.compare(password, this.password);
 };
 
 const User = model('user', userSchema);
-module.exports =  User;
+module.exports = User;
