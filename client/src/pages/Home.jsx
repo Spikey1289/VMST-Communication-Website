@@ -1,6 +1,10 @@
+import "../components/GenPageSetUp/index.css";
+
 function Home() {
   return <>
-    <h1>Home</h1>
+  <div className="formatpage">
+  <h1>Home</h1>
+  </div>
   </>
 }
 
