@@ -44,7 +44,7 @@ When leaders, coaches, website admins, or the Membership Coordinator log into th
 ## Questions
 Reach out if you have questions that are not covered here!
 
-- GitHub username: Spikey1289
+- GitHub username: ianmstevenson1
 - email: ianmstevenson1@gmail.com
 
 ## Contributions
@@ -52,7 +52,7 @@ This website was initially created by the following individuals (GitHub username
 
 - Brian Guthrie
 - De'Shawn Pair
-- Ian Stevenson (Spikey1289)
+- Ian Stevenson (ianmstevenson1)
 - Chris Stevenson (clstevenson)
 
 Future development of the website will continue on a [forked branch.](https://github.com/clstevenson/VMST-Communication-Website)
